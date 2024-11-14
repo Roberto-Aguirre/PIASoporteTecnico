@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="caja">
+            <h1><img src="img/logo.png" alt="Logo del Soporte Técnico"></h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="herramientas.html">Herramientas</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <table id="table-contactos">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo Electronico</th>
+                    <th>Telefono</th>
+                    <th>Mensaje</th>
+                    <th>Medio de contacto</th>
+                    <th>Momento del día</th>
+                    <th>Novedades</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody id="full-contenido">
+            </tbody>
+        </table>
+    </main>
+
+    <footer class="pie-de-pagina">
+        <div class="contenido-pie">
+            <img src="img/logo2.png" alt="Logo" class="imagen-pie">
+            <p>&copy; Soporte Técnico - Todos los derechos reservados - 2024</p>
+        </div>
+    </footer>
+
+</body>
+
+<script>
+    
+    function createRows(data) {
+        const principalRow = document.getElementById("full-contenido");
+        let body = ""
+        data.forEach(element => {
+           body += `
+    <tr>
+        <td>${element.nombre}</td>
+        <td>${element.correo}</td>
+        <td>${element.telefono}</td>
+        <td>${element.mensaje}</td>
+        <td>${element.medio_contacto}</td>
+        <td>${element.momento_contacto}</td>
+        <td>${element.novedades===1?"Suscrito":"No suscrito"}</td>
+        <td>${element.fecha}</td>
+    </tr>
+    `
+        });
+        console.log(body);
+    principalRow.innerHTML = body
+    }
+ 
+    fetch("http://da098637-9ceb-4cd4-81a3-2b0ccc289862.clouding.host/api/informacion", {
+        method: "GET",
+    }).then(response => response.json())
+    .then(data => 
+        createRows(data)
+    )
+    .catch(error => console.log(error));
+
+</script>
+
+</html>

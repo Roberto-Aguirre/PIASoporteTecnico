@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,47 +23,61 @@
         </div>
     </header>
     <main>
-        <form>
+        <form class="form">
             <label for="nombreApellido">Nombre y Apellido</label>
-            <input type="text" id="nombreApellido" class="input-padron" required placeholder="Marcelo Alvarez">
-            
-            <label for="correoElectronico">Correo Electrónico</label>
-            <input type="email" id="correoElectronico" class="input-padron" required placeholder="email@dominio.com">
-            <label for="telefono">Teléfono</label>
-            <input type="tel" id="telefono" class="input-padron" required placeholder="(xx) xxxx xxxx">
-            
-            <label for="mensaje">Mensaje</label>
-            <textarea cols="70" rows="10" id="mensaje" class="input-padron" required placeholder="Mensaje de muestra!"></textarea>
+            <input type="text" id="nombreApellido" class="input-padron" required placeholder="Marcelo Alvarez"
+                name="nombreApellido">
 
-            <fieldset>
+            <label for="correoElectronico">Correo Electrónico</label>
+            <input type="email" name="correoElectronico" id="correoElectronico" class="input-padron" required
+                placeholder="email@dominio.com">
+            <label for="telefono">Teléfono</label>
+            <input minlength="10" maxlength="10" type="tel" id="telefono" class="input-padron" required
+                placeholder="(xx) xxxx xxxx">
+
+            <label for="mensaje">Mensaje</label>
+            <textarea cols="70" rows="10" id="mensaje" class="input-padron" required
+                placeholder="Mensaje de muestra!"></textarea>
+
+            <fieldset id="radio-contacto">
                 <legend>Como le gustaria que lo contactemos?</legend>
 
-                <label for="radio-email"><input type="radio" name="contacto" value="email" id="radio-email">Email</label>
-                
-                <label for="radio-telefono"><input type="radio" name="contacto" value="telefono" id="radio-telefono">Teléfono</label>
-    
-                <label for="radio-whatsapp"><input type="radio" name="contacto" value="whatsapp" id="radio-whatsapp" checked>WhatsApp</label>
+                <label for="radio-email">
+                    <input type="radio" name="contacto" id="radio-email" value="email">Email
+                </label>
+
+                <label for="radio-telefono">
+                    <input type="radio" name="contacto" id="radio-telefono" value="telefono">Teléfono
+                </label>
+
+                <label for="radio-whatsapp">
+                    <input type="radio" name="contacto" id="radio-whatsapp" value="whatsapp" checked>WhatsApp</label>
             </fieldset>
 
             <fieldset>
                 <legend>En que momento del dia le gustaria que lo contactemos?</legend>
-                <select>
-                    <option>Mañana</option>
-                    <option>Tarde</option>
-                    <option>Noche</option>
+                <select id="dia_momento" name="dia_momento">
+                    <option value="Mañana">Mañana</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Noche">Noche</option>
                 </select>
             </fieldset>
-            
-            <label class="checkbox"><input type="checkbox" checked>Le gustaria recibir novedades sobre soporte técnico?</label>
 
+            <label class="checkbox">
+                <input type="checkbox" id="checkbox-novedades" name="checkbox-novedades">Le gustaria recibir novedades
+                sobre soporte técnico?
+            </label>
             <input type="submit" value="Enviar Formulario" class="enviar">
+
         </form>
 
         <div id="encuesta">
             <h2>¡Queremos saber tu opinión!</h2>
-            <p>Tu retroalimentación es muy importante para nosotros. Por favor, dedica unos minutos a completar nuestra encuesta de satisfacción.</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdf-tRSiej6cdpsieqWgxfafqxccFg2nlQXeJFmo54aB1HWow/viewform" target="_blank" class="button">Acceder a la Encuesta</a>
-        </div>        
+            <p>Tu retroalimentación es muy importante para nosotros. Por favor, dedica unos minutos a completar nuestra
+                encuesta de satisfacción.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdf-tRSiej6cdpsieqWgxfafqxccFg2nlQXeJFmo54aB1HWow/viewform"
+                target="_blank" class="button">Acceder a la Encuesta</a>
+        </div>
 
         <table>
             <thead>
@@ -96,4 +111,33 @@
     </footer>
 
 </body>
+
+<script>
+
+    const form1 = document.querySelector(".form");
+    form1.addEventListener('submit', event => {
+        event.preventDefault()
+        let data = {
+            nombre: document.getElementById("nombreApellido").value,
+            correo: document.getElementById("correoElectronico").value,
+            telefono: document.getElementById("telefono").value,
+            mensaje: document.getElementById("mensaje").value,
+            medio_contacto: document.querySelector('input[name="contacto"]:checked').value,
+            momento_contacto: document.getElementById("dia_momento").value,
+            novedades: document.getElementById("checkbox-novedades").checked
+        }
+
+        fetch("http://da098637-9ceb-4cd4-81a3-2b0ccc289862.clouding.host/api/informacion", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(alert("Creado exitosamente"))
+            .catch(error => console.log(error));
+        form1.reset()
+    });
+
+</script>
+
 </html>
