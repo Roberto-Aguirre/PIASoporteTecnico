@@ -1,0 +1,55 @@
+body {
+    background: #d19e75;
+  }
+  
+  header {
+    text-align: center;
+  }
+  
+  #banner{
+    width: 100%;
+  }
+  
+  .principal{
+    background: #CCCCCC;
+    padding: 20px;
+  }
+  
+  h1{
+    text-align: center;
+  }
+  
+  p {
+    text-align: center;
+  }
+  
+  em strong {
+    color: #e42d2d;
+  }
+  
+  #mision{
+    font-size: 20px;
+  }
+  
+  .diferenciales{
+    background: white ;
+    padding: 30px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  h2{
+    text-align: center;
+  }
+  
+  ul{
+    display: inline-block;
+    vertical-align: top;
+    width: 20%;
+    margin-right: 20%;
+  }
+  
+  .imagenDiferenciales{
+    width: 20%;
+    height: 20%;
+  }
